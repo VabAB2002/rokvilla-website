@@ -1,0 +1,150 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+
+interface VideoHeroProps {
+  videoUrl?: string;
+  title: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export default function VideoHero({
+  videoUrl = "/videos/hero-video.mp4",
+  title,
+  subtitle,
+  ctaText = "Discover more",
+  ctaLink = "/projects",
+}: VideoHeroProps) {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Auto-play video on mount
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Auto-play might be blocked, handle gracefully
+        setIsPlaying(false);
+      });
+    }
+  }, []);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  return (
+    <div className="relative h-screen w-full overflow-hidden">
+      {/* Fallback Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black" />
+      
+      {/* Video Background */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      >
+        <source src={videoUrl} type="video/mp4" />
+      </video>
+
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/30" />
+
+      {/* Content */}
+      <div className="relative z-10 h-full flex items-center px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="max-w-2xl">
+            {/* Main Title */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+              {title}
+            </h1>
+
+            {/* Subtitle */}
+            {subtitle && (
+              <p className="text-xl md:text-2xl text-white/90">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Play/Pause Button - Bottom Right */}
+      <button
+        onClick={togglePlay}
+        className="absolute bottom-8 right-8 z-20 p-4 border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300"
+        aria-label={isPlaying ? "Pause video" : "Play video"}
+      >
+        {isPlaying ? (
+          // Pause Icon
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 9v6m4-6v6"
+            />
+          </svg>
+        ) : (
+          // Play Icon
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+            />
+          </svg>
+        )}
+      </button>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white animate-bounce">
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </div>
+
+      {/* Small Legal Text at Bottom (like Porsche) */}
+      <div className="absolute bottom-4 left-6 right-24 z-20 text-white/60 text-xs">
+        <p>
+          Professional architectural visualization. Project details and
+          specifications may vary.
+        </p>
+      </div>
+    </div>
+  );
+}
+

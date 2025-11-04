@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface ShowcaseProject {
   id: string;
@@ -36,15 +38,30 @@ const showcaseProjects: ShowcaseProject[] = [
 ];
 
 export default function ProjectShowcase() {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8 lg:px-12 bg-white">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-white"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="max-w-[1400px] mx-auto w-full"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5">
           {showcaseProjects.map((project, index) => (
-            <ShowcaseCard key={project.id} project={project} index={index} />
+            <ShowcaseCard
+              key={project.id}
+              project={project}
+              index={index}
+              isVisible={isVisible}
+            />
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -52,22 +69,30 @@ export default function ProjectShowcase() {
 function ShowcaseCard({
   project,
   index,
+  isVisible,
 }: {
   project: ShowcaseProject;
   index: number;
+  isVisible: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Link
-      href={project.link}
-      className="group block relative h-[280px] md:h-[320px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        animationDelay: `${index * 100}ms`,
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.15,
+        ease: "easeOut",
       }}
     >
+      <Link
+        href={project.link}
+        className="group block relative h-[245px] sm:h-[280px] lg:w-[435.84px] lg:h-[326.88px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
       {/* Background Image */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-400">
         {/* Placeholder for service image */}
@@ -175,7 +200,8 @@ function ShowcaseCard({
           isHovered ? "w-full" : "w-0"
         }`}
       />
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
 

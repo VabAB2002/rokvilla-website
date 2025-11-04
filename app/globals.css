@@ -48,3 +48,76 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Hide scrollbar for scroll snap sections while maintaining functionality */
+.snap-y::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-y {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Optimize scroll snap for better performance - mandatory on all devices */
+.snap-y {
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+}
+
+/* Ensure proper height for iOS Safari and mobile browsers */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Mobile-specific: Ensure min-h-screen sections also respect mobile viewport */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Prevent pull-to-refresh and overscroll on mobile */
+body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Improve touch scrolling performance */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure smooth scrolling on mobile */
+@media (max-width: 768px) {
+  .snap-y {
+    scroll-padding-top: 0;
+  }
+  
+  /* Ensure sections snap properly on mobile */
+  [data-scroll-section] {
+    scroll-snap-stop: always;
+  }
+  
+  /* Optimize section heights on mobile to account for browser UI */
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100svh; /* Small viewport height - excludes browser UI */
+  }
+  
+  /* Adjust padding for better mobile spacing */
+  section.min-h-screen {
+    padding-top: 5rem; /* Account for fixed navbar */
+    padding-bottom: 2rem;
+  }
+}
+
+/* For very small mobile screens */
+@media (max-width: 640px) {
+  /* Reduce animation distances for smaller screens */
+  section.min-h-screen {
+    padding-top: 4rem;
+  }
+}

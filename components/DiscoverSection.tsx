@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface DiscoverCard {
   id: string;
@@ -36,20 +38,35 @@ const discoverCards: DiscoverCard[] = [
 ];
 
 export default function DiscoverSection() {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8 lg:px-12 bg-white">
-      <div className="max-w-[1600px] mx-auto">
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-white"
+    >
+      <div className="max-w-[1600px] mx-auto w-full">
         {/* Section Title */}
-        <div className="text-center mb-8 md:mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-8 md:mb-12"
+        >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
             Discover
           </h2>
-        </div>
+        </motion.div>
 
         {/* 3 Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {discoverCards.map((card, index) => (
-            <DiscoverCard key={card.id} card={card} index={index} />
+            <DiscoverCard
+              key={card.id}
+              card={card}
+              index={index}
+              isVisible={isVisible}
+            />
           ))}
         </div>
       </div>
@@ -60,22 +77,30 @@ export default function DiscoverSection() {
 function DiscoverCard({
   card,
   index,
+  isVisible,
 }: {
   card: DiscoverCard;
   index: number;
+  isVisible: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Link
-      href={card.link}
-      className="group block relative h-[400px] md:h-[450px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        animationDelay: `${index * 100}ms`,
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.15,
+        ease: "easeOut",
       }}
     >
+      <Link
+        href={card.link}
+        className="group block relative h-[400px] md:h-[450px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
       {/* Background Image */}
       <div className="absolute inset-0">
         {/* Placeholder gradient background */}
@@ -182,7 +207,8 @@ function DiscoverCard({
           isHovered ? "w-full" : "w-0"
         }`}
       />
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
 

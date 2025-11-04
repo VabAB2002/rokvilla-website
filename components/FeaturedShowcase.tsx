@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface FeaturedProject {
   id: string;
@@ -32,20 +34,35 @@ const featuredProjects: FeaturedProject[] = [
 ];
 
 export default function FeaturedShowcase() {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8 lg:px-12 bg-white text-gray-900">
-      <div className="max-w-[1600px] mx-auto">
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-white text-gray-900"
+    >
+      <div className="max-w-[1600px] mx-auto w-full">
         {/* Section Title */}
-        <div className="mb-8 md:mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-8 md:mb-12"
+        >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
             Your ROKVILLA journey starts now.
           </h2>
-        </div>
+        </motion.div>
 
         {/* 2 Large Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {featuredProjects.map((project, index) => (
-            <FeaturedCard key={project.id} project={project} index={index} />
+            <FeaturedCard
+              key={project.id}
+              project={project}
+              index={index}
+              isVisible={isVisible}
+            />
           ))}
         </div>
       </div>
@@ -56,22 +73,30 @@ export default function FeaturedShowcase() {
 function FeaturedCard({
   project,
   index,
+  isVisible,
 }: {
   project: FeaturedProject;
   index: number;
+  isVisible: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Link
-      href={project.link}
-      className="group block relative h-[400px] md:h-[500px] lg:h-[600px] rounded-xl overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        animationDelay: `${index * 150}ms`,
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.2,
+        ease: "easeOut",
       }}
     >
+      <Link
+        href={project.link}
+        className="group block relative h-[400px] md:h-[500px] lg:h-[600px] rounded-xl overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
       {/* Background Image */}
       <div className="absolute inset-0">
         {/* Placeholder gradient background */}
@@ -161,7 +186,8 @@ function FeaturedCard({
           isHovered ? "w-full" : "w-0"
         }`}
       />
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
 

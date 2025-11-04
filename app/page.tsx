@@ -52,8 +52,11 @@ export default function Home() {
   return (
     <div
       ref={scrollContainerRef}
-      className="snap-y snap-mandatory overflow-y-scroll h-screen scroll-smooth touch-pan-y overscroll-none"
-      style={{ WebkitOverflowScrolling: 'touch' }}
+      className="snap-y snap-mandatory overflow-y-auto h-screen overscroll-none"
+      style={{ 
+        WebkitOverflowScrolling: 'touch',
+        touchAction: 'pan-y'
+      }}
     >
       {/* 1. Hero with big background */}
       <div data-scroll-section className="snap-start">

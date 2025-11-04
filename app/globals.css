@@ -59,10 +59,19 @@ html {
   scrollbar-width: none;
 }
 
-/* Optimize scroll snap for better performance - mandatory on all devices */
+/* Optimize scroll snap for better performance */
 .snap-y {
   scroll-snap-type: y mandatory;
   overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Desktop - keep mandatory snapping with smooth scroll */
+@media (min-width: 769px) {
+  .snap-y {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
 }
 
 /* Ensure proper height for iOS Safari and mobile browsers */
@@ -79,10 +88,9 @@ html {
   }
 }
 
-/* Prevent pull-to-refresh and overscroll on mobile */
+/* Mobile touch scrolling */
 body {
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
 }
 
 /* Improve touch scrolling performance */
@@ -90,15 +98,17 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Ensure smooth scrolling on mobile */
+/* Mobile scrolling optimizations */
 @media (max-width: 768px) {
   .snap-y {
     scroll-padding-top: 0;
+    /* Less strict snapping on mobile for better scroll feel */
+    scroll-snap-type: y proximity;
   }
   
-  /* Ensure sections snap properly on mobile */
+  /* Allow smoother scrolling on mobile */
   [data-scroll-section] {
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal;
   }
   
   /* Optimize section heights on mobile to account for browser UI */

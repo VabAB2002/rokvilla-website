@@ -43,7 +43,7 @@ export default function VideoHero({
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden touch-none">
+    <div className="relative h-screen w-full overflow-hidden">
       {/* Fallback Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black" />
       

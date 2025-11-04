@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -43,14 +44,25 @@ export default function ProjectShowcase() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-white"
+      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-[#F5F1E8]"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
         className="max-w-[1400px] mx-auto w-full"
       >
+        {/* Header Section */}
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+            Our Services
+          </h2>
+          <p className="text-base md:text-lg text-gray-600">
+            From Design to Completion
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5">
           {showcaseProjects.map((project, index) => (
             <ShowcaseCard
@@ -82,10 +94,11 @@ function ShowcaseCard({
       initial={{ opacity: 0, y: 30 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{
-        duration: 0.5,
-        delay: index * 0.15,
+        duration: 0.4,
+        delay: index * 0.1,
         ease: "easeOut",
       }}
+      style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
     >
       <Link
         href={project.link}
@@ -94,58 +107,16 @@ function ShowcaseCard({
         onMouseLeave={() => setIsHovered(false)}
       >
       {/* Background Image */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-300 to-gray-400">
-        {/* Placeholder for service image */}
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-600">
-          <div className="text-center text-white/60">
-            {project.title === "DESIGN" && (
-              <svg
-                className="w-16 h-16 mx-auto mb-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                />
-              </svg>
-            )}
-            {project.title === "BUILD" && (
-              <svg
-                className="w-16 h-16 mx-auto mb-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                />
-              </svg>
-            )}
-            {project.title === "FURNISH" && (
-              <svg
-                className="w-16 h-16 mx-auto mb-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                />
-              </svg>
-            )}
-            <p className="text-xs">{project.title}</p>
-          </div>
-        </div>
+      <div className="absolute inset-0">
+        <Image
+          src={project.imageUrl}
+          alt={project.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 435px"
+          className="object-cover"
+          loading="lazy"
+          quality={85}
+        />
       </div>
 
       {/* Hover Overlay */}

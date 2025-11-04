@@ -40,7 +40,7 @@ export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
       },
       {
         threshold,
-        rootMargin: "0px",
+        rootMargin: "50px", // Start animation slightly before element enters viewport
       }
     );
 
@@ -52,5 +52,24 @@ export function useScrollAnimation(options: UseScrollAnimationOptions = {}) {
   }, [threshold, triggerOnce]);
 
   return { ref, isVisible };
+}
+
+// Hook to get user's motion preference
+export function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  return prefersReducedMotion;
 }
 

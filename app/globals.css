@@ -98,6 +98,45 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Performance optimizations - GPU acceleration for transforms and animations */
+@layer utilities {
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
+
+/* Optimize animations for better performance */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize image loading */
+img {
+  content-visibility: auto;
+}
+
+/* Optimize video performance */
+video {
+  content-visibility: auto;
+  contain: layout style paint;
+}
+
 /* Mobile scrolling optimizations */
 @media (max-width: 768px) {
   .snap-y {

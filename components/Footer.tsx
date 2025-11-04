@@ -11,20 +11,20 @@ export default function Footer() {
   return (
     <footer
       ref={ref as React.RefObject<HTMLElement>}
-      className="bg-gray-900 text-white min-h-screen flex items-center justify-center"
+      className="bg-[#F5F1E8] text-gray-900 py-12"
     >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
       >
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-2xl font-bold mb-4">ROKVILLA</h3>
-            <p className="text-sm text-gray-400 mb-2">Design & Build Co.</p>
-            <p className="text-gray-400 mb-4">
+            <p className="text-sm text-gray-600 mb-2">Design & Build Co.</p>
+            <p className="text-gray-700 mb-4">
               One stop solution for all home Designing, building & furnishing 
               needs. Expert residential design & construction across Karnataka.
             </p>
@@ -34,7 +34,7 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -45,7 +45,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -56,7 +56,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -71,22 +71,22 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/about" className="text-gray-700 hover:text-gray-900 transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/projects" className="text-gray-700 hover:text-gray-900 transition-colors">
                   Projects
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/services" className="text-gray-700 hover:text-gray-900 transition-colors">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/team" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/team" className="text-gray-700 hover:text-gray-900 transition-colors">
                   Team
                 </Link>
               </li>
@@ -96,19 +96,19 @@ export default function Footer() {
           {/* Contact Info */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li className="font-medium text-white mb-2">Our Locations:</li>
+            <ul className="space-y-2 text-gray-700">
+              <li className="font-medium text-gray-900 mb-2">Our Locations:</li>
               <li>Hubli-Dharwad</li>
               <li>Bengaluru</li>
               <li>Ballari</li>
               <li>Vijayapura</li>
               <li className="pt-2">
-                <a href="mailto:home@rokvilla.com" className="hover:text-white transition-colors">
+                <a href="mailto:home@rokvilla.com" className="hover:text-gray-900 transition-colors">
                   home@rokvilla.com
                 </a>
               </li>
               <li>
-                <a href="https://rokvilla.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://rokvilla.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 transition-colors">
                   www.rokvilla.com
                 </a>
               </li>
@@ -117,7 +117,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-300 mt-6 pt-6 text-center text-gray-600 text-sm">
           <p>&copy; {currentYear} ROKVILLA Design & Build Co. All rights reserved.</p>
         </div>
       </motion.div>

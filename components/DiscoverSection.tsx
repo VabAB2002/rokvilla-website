@@ -43,14 +43,15 @@ export default function DiscoverSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-white"
+      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-[#F5F1E8]"
     >
       <div className="max-w-[1600px] mx-auto w-full">
         {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
           className="text-center mb-8 md:mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
@@ -90,10 +91,11 @@ function DiscoverCard({
       initial={{ opacity: 0, y: 40 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{
-        duration: 0.5,
-        delay: index * 0.15,
+        duration: 0.4,
+        delay: index * 0.1,
         ease: "easeOut",
       }}
+      style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
     >
       <Link
         href={card.link}

@@ -19,16 +19,22 @@ export default function VideoHero({
   ctaLink = "/projects",
 }: VideoHeroProps) {
   const [isPlaying, setIsPlaying] = useState(true);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Auto-play video on mount
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Auto-play might be blocked, handle gracefully
-        setIsPlaying(false);
-      });
-    }
+    // Lazy load video with slight delay to prioritize page load
+    const loadTimer = setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.load();
+        videoRef.current.play().catch(() => {
+          // Auto-play might be blocked, handle gracefully
+          setIsPlaying(false);
+        });
+      }
+    }, 100);
+
+    return () => clearTimeout(loadTimer);
   }, []);
 
   const togglePlay = () => {
@@ -51,12 +57,13 @@ export default function VideoHero({
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
-        autoPlay
         muted
         loop
         playsInline
+        preload="metadata"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
+        onLoadedData={() => setVideoLoaded(true)}
       >
         <source src={videoUrl} type="video/mp4" />
       </video>

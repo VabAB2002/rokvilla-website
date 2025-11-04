@@ -5,6 +5,7 @@ import VideoHero from "@/components/VideoHero";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import FeaturedShowcase from "@/components/FeaturedShowcase";
 import DiscoverSection from "@/components/DiscoverSection";
+import MapSection from "@/components/MapSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -84,7 +85,12 @@ export default function Home() {
         <DiscoverSection />
       </div>
 
-      {/* 5. Footer */}
+      {/* 5. Map Section - Visit Our Offices */}
+      <div data-scroll-section className="snap-start">
+        <MapSection />
+      </div>
+
+      {/* 6. Footer */}
       <div data-scroll-section className="snap-start">
         <Footer />
       </div>

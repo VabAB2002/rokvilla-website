@@ -66,12 +66,23 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Desktop - keep mandatory snapping with smooth scroll */
+/* Tablet and Desktop - keep mandatory snapping with smooth scroll */
 @media (min-width: 769px) {
   .snap-y {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
   }
+}
+
+/* Optimize scroll performance on all devices */
+.snap-y {
+  /* Hardware acceleration for scroll container */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Smooth momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+  /* Prevent scroll chaining */
+  overscroll-behavior-y: contain;
 }
 
 /* Ensure proper height for iOS Safari and mobile browsers */
@@ -143,11 +154,14 @@ video {
     scroll-padding-top: 0;
     /* Less strict snapping on mobile for better scroll feel */
     scroll-snap-type: y proximity;
+    /* Improve scroll performance */
+    scroll-behavior: auto;
   }
   
   /* Allow smoother scrolling on mobile */
   [data-scroll-section] {
     scroll-snap-stop: normal;
+    scroll-snap-align: start;
   }
   
   /* Optimize section heights on mobile to account for browser UI */
@@ -160,6 +174,11 @@ video {
   section.min-h-screen {
     padding-top: 5rem; /* Account for fixed navbar */
     padding-bottom: 2rem;
+  }
+  
+  /* Reduce animation overhead during scroll */
+  * {
+    will-change: auto !important;
   }
 }
 
@@ -238,13 +257,22 @@ video {
 
 /* Improved momentum scrolling for iOS */
 @supports (-webkit-overflow-scrolling: touch) {
-  * {
+  .snap-y {
     -webkit-overflow-scrolling: touch;
   }
   
   /* Optimize section scrolling */
   section {
     overflow-anchor: none;
+  }
+}
+
+/* Reduce motion and complexity during active scrolling for better performance */
+@media (max-width: 1024px) {
+  /* Disable complex transforms during scroll on mobile/tablet */
+  .snap-y.scrolling * {
+    transition-duration: 0ms !important;
+    animation: none !important;
   }
 }
 
@@ -284,5 +312,22 @@ video {
   section.min-h-screen {
     padding-top: 3rem;
     padding-bottom: 1.5rem;
+  }
+  
+  /* Even lighter snap in landscape for easier browsing */
+  .snap-y {
+    scroll-snap-type: y proximity;
+  }
+}
+
+/* Prevent scroll jank by reducing repaints */
+@media (max-width: 768px) {
+  section {
+    contain: layout style paint;
+  }
+  
+  /* Optimize fixed elements during scroll */
+  nav {
+    will-change: transform;
   }
 }

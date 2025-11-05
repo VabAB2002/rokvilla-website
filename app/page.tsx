@@ -11,6 +11,32 @@ import Footer from "@/components/Footer";
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  // Optimize scroll performance by detecting active scrolling
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let scrollTimeout: NodeJS.Timeout;
+    
+    const handleScroll = () => {
+      // Add scrolling class for performance optimization
+      container.classList.add('scrolling');
+      
+      // Remove class after scrolling stops
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        container.classList.remove('scrolling');
+      }, 150);
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, []);
+
   // Keyboard navigation for section scrolling
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -53,10 +79,11 @@ export default function Home() {
   return (
     <div
       ref={scrollContainerRef}
-      className="snap-y snap-mandatory overflow-y-auto h-screen overscroll-none"
+      className="snap-y snap-proximity md:snap-mandatory overflow-y-auto h-screen overscroll-none"
       style={{ 
         WebkitOverflowScrolling: 'touch',
-        touchAction: 'pan-y'
+        touchAction: 'pan-y',
+        scrollBehavior: 'smooth'
       }}
     >
       {/* 1. Hero with big background */}

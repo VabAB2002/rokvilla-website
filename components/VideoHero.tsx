@@ -53,7 +53,7 @@ export default function VideoHero({
       {/* Fallback Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black" />
       
-      {/* Video Background */}
+      {/* Video Background - Optimized for mobile */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
@@ -64,25 +64,28 @@ export default function VideoHero({
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onLoadedData={() => setVideoLoaded(true)}
+        poster="/images/hero-poster.jpg"
       >
         <source src={videoUrl} type="video/mp4" />
+        {/* Fallback for browsers that don't support video */}
+        Your browser does not support the video tag.
       </video>
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/30" />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center px-6 lg:px-12">
+      <div className="relative z-10 h-full flex items-center px-4 sm:px-6 lg:px-12">
         <div className="max-w-7xl mx-auto w-full">
           <div className="max-w-2xl">
-            {/* Main Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+            {/* Main Title - Responsive sizing */}
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               {title}
             </h1>
 
-            {/* Subtitle */}
+            {/* Subtitle - Better mobile sizing */}
             {subtitle && (
-              <p className="text-xl md:text-2xl text-white/90">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed">
                 {subtitle}
               </p>
             )}
@@ -90,16 +93,16 @@ export default function VideoHero({
         </div>
       </div>
 
-      {/* Play/Pause Button - Bottom Right */}
+      {/* Play/Pause Button - Repositioned for mobile thumb reach */}
       <button
         onClick={togglePlay}
-        className="absolute bottom-8 right-8 z-20 p-4 border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300"
+        className="absolute bottom-6 right-4 sm:bottom-8 sm:right-8 z-20 p-3 sm:p-4 border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 min-h-[48px] min-w-[48px] flex items-center justify-center no-touch-size rounded-sm"
         aria-label={isPlaying ? "Pause video" : "Play video"}
       >
         {isPlaying ? (
           // Pause Icon
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5 sm:w-6 sm:h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -114,7 +117,7 @@ export default function VideoHero({
         ) : (
           // Play Icon
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5 sm:w-6 sm:h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -129,8 +132,8 @@ export default function VideoHero({
         )}
       </button>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white animate-bounce">
+      {/* Scroll Indicator - Hidden on very small screens */}
+      <div className="hidden sm:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white animate-bounce">
         <svg
           className="w-6 h-6"
           fill="none"
@@ -144,8 +147,8 @@ export default function VideoHero({
         </svg>
       </div>
 
-      {/* Small Legal Text at Bottom (like Porsche) */}
-      <div className="absolute bottom-4 left-6 right-24 z-20 text-white/60 text-xs">
+      {/* Small Legal Text at Bottom - Better mobile handling */}
+      <div className="hidden sm:block absolute bottom-4 left-4 sm:left-6 right-16 sm:right-24 z-20 text-white/60 text-xs">
         <p>
           Professional architectural visualization. Project details and
           specifications may vary.

@@ -79,39 +79,39 @@ export default function MapSection() {
       ref={ref as React.RefObject<HTMLElement>}
       className="min-h-screen flex items-center justify-center bg-[#F5F1E8]"
     >
-      <div className="w-full h-full py-12 md:py-16 px-4 md:px-8 lg:px-12">
+      <div className="w-full h-full py-12 sm:py-14 md:py-16 px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Top Content Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
-          className="max-w-[1600px] mx-auto mb-8 md:mb-12 grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="max-w-[1600px] mx-auto mb-6 sm:mb-8 md:mb-12 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
         >
           {/* Left - Heading */}
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
               Where to find us?
             </h2>
           </div>
           
           {/* Right - Description & Location Info */}
-          <div className="space-y-6">
-            <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+          <div className="space-y-4 sm:space-y-6">
+            <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
               We have two locations to serve you better across Karnataka. Visit us or get directions to our offices.
             </p>
             
-            {/* Quick Location Buttons */}
-            <div className="flex flex-wrap gap-4">
+            {/* Quick Location Buttons - Responsive */}
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
               {locations.map((location) => (
                 <button
                   key={location.id}
                   onClick={() => handleGetDirections(location.address)}
-                  className="px-6 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-300 flex items-center gap-2"
+                  className="w-full sm:w-auto px-5 sm:px-6 py-3.5 sm:py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 min-h-[48px]"
                 >
-                  <span>{location.name.replace("ROKVILLA - ", "")}</span>
+                  <span className="text-sm sm:text-base">{location.name.replace("ROKVILLA - ", "")}</span>
                   <svg
-                    className="w-5 h-5"
+                    className="w-5 h-5 sm:w-5 sm:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -129,13 +129,13 @@ export default function MapSection() {
           </div>
         </motion.div>
 
-        {/* Full Width Map */}
+        {/* Full Width Map - Responsive height */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
           style={{ willChange: shouldLoadMap ? 'transform, opacity' : 'auto' }}
-          className="w-full max-w-[1600px] mx-auto h-[60vh] md:h-[70vh] rounded-xl overflow-hidden shadow-2xl"
+          className="w-full max-w-[1600px] mx-auto h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[65vh] xl:h-[70vh] rounded-xl overflow-hidden shadow-2xl"
         >
           {!shouldLoadMap ? (
             // Loading map skeleton - show before map loads
@@ -166,6 +166,7 @@ export default function MapSection() {
                   streetViewControl: false,
                   mapTypeControl: false,
                   fullscreenControl: true,
+                  gestureHandling: 'greedy', // Better touch handling on mobile
                   styles: [
                     {
                       featureType: "poi",
@@ -183,13 +184,13 @@ export default function MapSection() {
                     title={location.name}
                     icon={{
                       url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24">
                           <circle cx="12" cy="12" r="8" fill="#111827" stroke="#ffffff" stroke-width="2"/>
                           <text x="12" y="16" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">${location.name.includes("Hubballi") ? "H" : "D"}</text>
                         </svg>
                       `)}`,
-                      scaledSize: { width: 48, height: 48 } as any,
-                      anchor: { x: 24, y: 24 } as any,
+                      scaledSize: { width: 56, height: 56 } as any, // Larger markers for touch devices
+                      anchor: { x: 28, y: 28 } as any,
                     }}
                   />
                 ))}
@@ -201,11 +202,11 @@ export default function MapSection() {
                     }
                     onCloseClick={() => setSelectedLocation(null)}
                   >
-                    <div className="p-2 max-w-xs">
-                      <h3 className="font-bold text-gray-900 mb-1">
+                    <div className="p-2 sm:p-3 max-w-xs">
+                      <h3 className="font-bold text-gray-900 mb-1 text-sm sm:text-base">
                         {locations.find((loc) => loc.id === selectedLocation)?.name}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                         {locations.find((loc) => loc.id === selectedLocation)?.address}
                       </p>
                       <button
@@ -214,7 +215,7 @@ export default function MapSection() {
                             locations.find((loc) => loc.id === selectedLocation)?.address || ""
                           )
                         }
-                        className="text-sm text-blue-600 hover:text-blue-800 font-semibold"
+                        className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 font-semibold min-h-[36px] flex items-center"
                       >
                         Get Directions →
                       </button>

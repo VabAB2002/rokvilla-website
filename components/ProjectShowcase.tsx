@@ -44,7 +44,7 @@ export default function ProjectShowcase() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-[#F5F1E8]"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 bg-[#F5F1E8]"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -54,16 +54,16 @@ export default function ProjectShowcase() {
         className="max-w-[1400px] mx-auto w-full"
       >
         {/* Header Section */}
-        <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3">
             Our Services
           </h2>
-          <p className="text-base md:text-lg text-gray-600">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600">
             From Design to Completion
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {showcaseProjects.map((project, index) => (
             <ShowcaseCard
               key={project.id}
@@ -102,9 +102,11 @@ function ShowcaseCard({
     >
       <Link
         href={project.link}
-        className="group block relative h-[245px] sm:h-[280px] lg:w-[435.84px] lg:h-[326.88px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+        className="group block relative h-[280px] sm:h-[300px] md:h-[320px] lg:h-[326.88px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 active:scale-[0.98]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={() => setIsHovered(true)}
+        onTouchEnd={() => setIsHovered(false)}
       >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -112,7 +114,7 @@ function ShowcaseCard({
           src={project.imageUrl}
           alt={project.title}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 435px"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 435px"
           className="object-cover"
           loading="lazy"
           quality={85}
@@ -127,30 +129,30 @@ function ShowcaseCard({
       />
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
+      <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6">
         {/* Title and Arrow Container */}
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-3">
           {/* Title */}
           <div className="flex-1">
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
+            <h3 className="text-xl sm:text-2xl md:text-2xl lg:text-2xl font-bold text-white mb-1">
               {project.title}
             </h3>
             {project.subtitle && (
-              <p className="text-white/80 text-xs md:text-sm">
+              <p className="text-white/80 text-sm sm:text-base">
                 {project.subtitle}
               </p>
             )}
           </div>
 
-          {/* Arrow Icon */}
+          {/* Arrow Icon - Larger on mobile for better touch */}
           <div
-            className={`flex-shrink-0 ml-4 transform transition-all duration-500 ${
+            className={`flex-shrink-0 transform transition-all duration-500 ${
               isHovered ? "translate-x-2 translate-y-[-8px]" : ""
             }`}
           >
-            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 flex items-center justify-center">
               <svg
-                className="w-5 h-5 md:w-6 md:h-6 text-white"
+                className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -165,7 +167,7 @@ function ShowcaseCard({
         </div>
       </div>
 
-      {/* Bottom Line Accent (appears on hover) */}
+      {/* Bottom Line Accent (appears on hover/touch) */}
       <div
         className={`absolute bottom-0 left-0 h-1 bg-white transition-all duration-500 ${
           isHovered ? "w-full" : "w-0"

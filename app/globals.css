@@ -170,3 +170,119 @@ video {
     padding-top: 4rem;
   }
 }
+
+/* Tablet optimizations (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
+  
+  /* Adjust section padding for tablets */
+  section.min-h-screen {
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+  }
+  
+  /* Optimize touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Large tablet optimizations (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1280px) {
+  body {
+    font-size: 17px;
+  }
+  
+  section.min-h-screen {
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+  }
+}
+
+/* Touch-friendly button and link sizing for all mobile devices */
+@media (max-width: 1280px) {
+  /* Minimum touch target size (44x44px per Apple/Google guidelines) */
+  button:not(.no-touch-size),
+  a.btn,
+  input[type="submit"],
+  input[type="button"],
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Improve form element sizing */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  select,
+  textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+    min-height: 44px;
+  }
+  
+  /* Better tap feedback */
+  button:active,
+  a:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+}
+
+/* Improved momentum scrolling for iOS */
+@supports (-webkit-overflow-scrolling: touch) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Optimize section scrolling */
+  section {
+    overflow-anchor: none;
+  }
+}
+
+/* Better viewport handling for mobile browsers */
+@supports (height: 100dvh) {
+  .h-screen {
+    height: 100dvh; /* Dynamic viewport height - adjusts for browser chrome */
+  }
+  
+  .min-h-screen {
+    min-height: 100dvh;
+  }
+}
+
+/* Optimize for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  *:hover {
+    transition-duration: 0.01ms;
+  }
+  
+  /* Add active state feedback instead */
+  button:active,
+  a:active,
+  [role="button"]:active {
+    opacity: 0.8;
+  }
+}
+
+/* Landscape mode optimization for mobile */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  
+  /* Reduce vertical padding in landscape */
+  section.min-h-screen {
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+  }
+}

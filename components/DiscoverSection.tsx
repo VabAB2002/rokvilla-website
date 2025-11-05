@@ -43,7 +43,7 @@ export default function DiscoverSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 bg-[#F5F1E8]"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 bg-[#F5F1E8]"
     >
       <div className="max-w-[1600px] mx-auto w-full">
         {/* Section Title */}
@@ -52,15 +52,15 @@ export default function DiscoverSection() {
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
-          className="text-center mb-8 md:mb-12"
+          className="text-center mb-8 sm:mb-10 md:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
             Discover
           </h2>
         </motion.div>
 
-        {/* 3 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {/* 3 Cards Grid - Responsive: 1 col mobile, 2 cols tablet, 3 cols desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
           {discoverCards.map((card, index) => (
             <DiscoverCard
               key={card.id}
@@ -99,9 +99,11 @@ function DiscoverCard({
     >
       <Link
         href={card.link}
-        className="group block relative h-[400px] md:h-[450px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+        className="group block relative h-[350px] sm:h-[400px] md:h-[420px] lg:h-[450px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 active:scale-[0.98]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onTouchStart={() => setIsHovered(true)}
+        onTouchEnd={() => setIsHovered(false)}
       >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -111,7 +113,7 @@ function DiscoverCard({
             <div className="text-center text-white/30">
               {card.title === "DESIGN DOCKET" && (
                 <svg
-                  className="w-24 h-24 mx-auto mb-4"
+                  className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -126,7 +128,7 @@ function DiscoverCard({
               )}
               {card.title === "BUILD PACKAGES" && (
                 <svg
-                  className="w-24 h-24 mx-auto mb-4"
+                  className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -141,7 +143,7 @@ function DiscoverCard({
               )}
               {card.title === "STYLING/MAKEOVER" && (
                 <svg
-                  className="w-24 h-24 mx-auto mb-4"
+                  className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -154,7 +156,7 @@ function DiscoverCard({
                   />
                 </svg>
               )}
-              <p className="text-sm">Service Image</p>
+              <p className="text-xs sm:text-sm">Service Image</p>
             </div>
           </div>
         </div>
@@ -167,28 +169,28 @@ function DiscoverCard({
         }`}
       />
 
-      {/* Content - Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-        <div className="flex items-end justify-between">
+      {/* Content - Bottom - Better mobile sizing */}
+      <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 md:p-8">
+        <div className="flex items-end justify-between gap-3">
           {/* Title and Description */}
           <div className="flex-1">
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-1.5 sm:mb-2 leading-tight">
               {card.title}
             </h3>
-            <p className="text-white/80 text-sm md:text-base">
+            <p className="text-white/80 text-sm sm:text-base leading-relaxed">
               {card.description}
             </p>
           </div>
 
-          {/* Arrow Icon */}
+          {/* Arrow Icon - Larger for touch devices */}
           <div
-            className={`flex-shrink-0 ml-4 transform transition-all duration-500 ${
+            className={`flex-shrink-0 transform transition-all duration-500 ${
               isHovered ? "translate-x-2 translate-y-[-8px]" : ""
             }`}
           >
-            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center">
               <svg
-                className="w-6 h-6 md:w-8 md:h-8 text-white"
+                className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 text-white"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"

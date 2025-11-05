@@ -85,10 +85,10 @@ export default function FeaturedShowcase() {
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect mobile screen size
+  // Detect mobile screen size - Updated to include large tablets
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // Mobile and tablet (< 1024px)
+      setIsMobile(window.innerWidth < 1280); // Mobile, tablet, and large tablet (< 1280px)
     };
 
     // Check on mount
@@ -108,7 +108,7 @@ export default function FeaturedShowcase() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex items-center justify-center px-4 md:px-8 lg:px-12 py-16 bg-[#F5F1E8] text-gray-900"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 bg-[#F5F1E8] text-gray-900"
     >
       <div className="max-w-[1600px] mx-auto w-full">
         {/* Section Title */}
@@ -117,24 +117,24 @@ export default function FeaturedShowcase() {
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
-          className="mb-12 md:mb-16"
+          className="mb-8 sm:mb-10 md:mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
             Your ROKVILLA journey starts now.
           </h2>
         </motion.div>
 
         {/* Conditional Rendering: Mobile (CircularGallery) vs Desktop (Stacked Cards) */}
         {isMobile ? (
-          // Mobile: 3D WebGL Circular Gallery
-          <div className="w-full" style={{ height: "600px" }}>
+          // Mobile/Tablet: 3D WebGL Circular Gallery - Responsive height
+          <div className="w-full" style={{ height: window.innerWidth < 640 ? "500px" : window.innerWidth < 1024 ? "600px" : "700px" }}>
             <CircularGallery
               items={circularGalleryItems}
               bend={1}
               textColor="#ffffff"
               borderRadius={0.05}
               scrollEase={0.1}
-              scrollSpeed={4}
+              scrollSpeed={window.innerWidth < 640 ? 3 : 4}
             />
           </div>
         ) : (
@@ -301,12 +301,12 @@ function FeaturedCard({
           }`}
         />
 
-        {/* Text Label - Bottom Left */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-          <h3 className="text-white font-semibold text-sm md:text-base mb-1">
+        {/* Text Label - Bottom Left - Better mobile readability */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 bg-gradient-to-t from-black/70 to-transparent">
+          <h3 className="text-white font-semibold text-base sm:text-lg md:text-base mb-1">
             {project.title}
           </h3>
-          <p className="text-white/80 text-xs">
+          <p className="text-white/80 text-sm sm:text-base md:text-xs">
             {project.location}
           </p>
         </div>

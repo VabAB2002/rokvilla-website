@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import FlowingMenu from "@/components/FlowingMenu";
 
 interface DiscoverCard {
   id: string;
@@ -43,22 +45,27 @@ export default function DiscoverSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 bg-[#F5F1E8]"
+      className="min-h-screen flex flex-col items-center justify-center bg-[#F5F1E8]"
     >
-      <div className="max-w-[1600px] mx-auto w-full">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
-          className="text-center mb-8 sm:mb-10 md:mb-12"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
-            Discover
-          </h2>
-        </motion.div>
+      {/* Section Title - Full Width FlowingMenu */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
+        className="w-full mb-8 sm:mb-10 md:mb-12"
+      >
+        <div className="h-[80px] md:h-[100px] relative bg-[#060010] overflow-hidden">
+          <FlowingMenu items={[{
+            link: '/services',
+            text: 'Discover',
+            image: 'https://picsum.photos/600/400?random=3'
+          }]} />
+        </div>
+      </motion.div>
 
+      {/* Content Container */}
+      <div className="max-w-[1600px] mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16">
         {/* 3 Cards Grid - Responsive: 1 col mobile, 2 cols tablet, 3 cols desktop */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
           {discoverCards.map((card, index) => (
@@ -106,60 +113,16 @@ function DiscoverCard({
         onTouchEnd={() => setIsHovered(false)}
       >
       {/* Background Image */}
-      <div className="absolute inset-0">
-        {/* Placeholder gradient background */}
-        <div className="w-full h-full bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800">
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="text-center text-white/30">
-              {card.title === "DESIGN DOCKET" && (
-                <svg
-                  className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              )}
-              {card.title === "BUILD PACKAGES" && (
-                <svg
-                  className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                  />
-                </svg>
-              )}
-              {card.title === "STYLING/MAKEOVER" && (
-                <svg
-                  className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                  />
-                </svg>
-              )}
-              <p className="text-xs sm:text-sm">Service Image</p>
-            </div>
-          </div>
-        </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900">
+        <Image
+          src={card.imageUrl}
+          alt={card.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+          loading="lazy"
+          quality={85}
+        />
       </div>
 
       {/* Hover Overlay */}

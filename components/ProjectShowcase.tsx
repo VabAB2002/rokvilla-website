@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import FlowingMenu from "@/components/FlowingMenu";
 
 interface ShowcaseProject {
   id: string;
@@ -44,25 +45,32 @@ export default function ProjectShowcase() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 bg-[#F5F1E8]"
+      className="min-h-screen flex flex-col items-center justify-center bg-[#F5F1E8]"
     >
+      {/* Header Section - Full Width FlowingMenu */}
+      <div className="w-full mb-8 sm:mb-10 md:mb-12">
+        <div className="h-[80px] md:h-[100px] relative bg-[#060010] overflow-hidden">
+          <FlowingMenu items={[{
+            link: '/services',
+            text: 'Our Services',
+            image: 'https://picsum.photos/600/400?random=1'
+          }]} />
+        </div>
+        <div className="px-4 sm:px-6 md:px-8 lg:px-12">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 text-center mt-4 max-w-[1400px] mx-auto">
+            From Design to Completion
+          </p>
+        </div>
+      </div>
+
+      {/* Content Container */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
         style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
-        className="max-w-[1400px] mx-auto w-full"
+        className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16"
       >
-        {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3">
-            Our Services
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600">
-            From Design to Completion
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
           {showcaseProjects.map((project, index) => (
             <ShowcaseCard

@@ -130,7 +130,7 @@ export default function FeaturedShowcase() {
           <div className="w-full" style={{ height: "600px" }}>
             <CircularGallery
               items={circularGalleryItems}
-              bend={3}
+              bend={1}
               textColor="#ffffff"
               borderRadius={0.05}
               scrollEase={0.1}

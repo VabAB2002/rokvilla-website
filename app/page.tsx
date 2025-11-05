@@ -17,18 +17,24 @@ export default function Home() {
     if (!container) return;
 
     let scrollTimeout: NodeJS.Timeout;
+    let isScrolling = false;
     
     const handleScroll = () => {
-      // Add scrolling class for performance optimization
-      container.classList.add('scrolling');
+      // Add scrolling class immediately for maximum performance
+      if (!isScrolling) {
+        container.classList.add('scrolling');
+        isScrolling = true;
+      }
       
-      // Remove class after scrolling stops
+      // Remove class after scrolling stops (reduced from 150ms to 100ms)
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         container.classList.remove('scrolling');
-      }, 150);
+        isScrolling = false;
+      }, 100);
     };
 
+    // Use passive listener for better scroll performance
     container.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => {
@@ -79,11 +85,10 @@ export default function Home() {
   return (
     <div
       ref={scrollContainerRef}
-      className="snap-y snap-proximity md:snap-mandatory overflow-y-auto h-screen overscroll-none"
+      className="md:snap-y md:snap-mandatory overflow-y-auto h-screen overscroll-none"
       style={{ 
         WebkitOverflowScrolling: 'touch',
-        touchAction: 'pan-y',
-        scrollBehavior: 'smooth'
+        touchAction: 'pan-y'
       }}
     >
       {/* 1. Hero with big background */}

@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import dynamic from "next/dynamic";
+
+// Dynamically import CircularGallery to avoid SSR issues with WebGL
+const CircularGallery = dynamic(() => import("./CircularGallery"), {
+  ssr: false,
+});
 
 interface FeaturedProject {
   id: string;
@@ -77,6 +83,27 @@ export default function FeaturedShowcase() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2, triggerOnce: false });
   const [isHoveringSection, setIsHoveringSection] = useState(false);
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // Mobile and tablet (< 1024px)
+    };
+
+    // Check on mount
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Prepare items for CircularGallery
+  const circularGalleryItems = featuredProjects.map((project) => ({
+    image: project.imageUrl,
+    text: project.title,
+  }));
 
   return (
     <section
@@ -97,28 +124,43 @@ export default function FeaturedShowcase() {
           </h2>
         </motion.div>
 
-        {/* Mood Board Container */}
-        <div
-          className="relative w-full"
-          style={{ minHeight: "800px" }}
-          onMouseEnter={() => setIsHoveringSection(true)}
-          onMouseLeave={() => {
-            setIsHoveringSection(false);
-            setHoveredCardId(null);
-          }}
-        >
-          {featuredProjects.map((project, index) => (
-            <FeaturedCard
-              key={project.id}
-              project={project}
-              index={index}
-              isVisible={isVisible}
-              isSectionHovered={isHoveringSection}
-              isCardHovered={hoveredCardId === project.id}
-              onCardHover={() => setHoveredCardId(project.id)}
+        {/* Conditional Rendering: Mobile (CircularGallery) vs Desktop (Stacked Cards) */}
+        {isMobile ? (
+          // Mobile: 3D WebGL Circular Gallery
+          <div className="w-full" style={{ height: "600px" }}>
+            <CircularGallery
+              items={circularGalleryItems}
+              bend={0}
+              textColor="#ffffff"
+              borderRadius={0.05}
+              scrollEase={0.02}
+              scrollSpeed={2}
             />
-          ))}
-        </div>
+          </div>
+        ) : (
+          // Desktop: Stacked/Scattered Mood Board
+          <div
+            className="relative w-full"
+            style={{ minHeight: "800px" }}
+            onMouseEnter={() => setIsHoveringSection(true)}
+            onMouseLeave={() => {
+              setIsHoveringSection(false);
+              setHoveredCardId(null);
+            }}
+          >
+            {featuredProjects.map((project, index) => (
+              <FeaturedCard
+                key={project.id}
+                project={project}
+                index={index}
+                isVisible={isVisible}
+                isSectionHovered={isHoveringSection}
+                isCardHovered={hoveredCardId === project.id}
+                onCardHover={() => setHoveredCardId(project.id)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

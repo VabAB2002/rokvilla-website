@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import FlowingMenu from "@/components/FlowingMenu";
 
 interface DiscoverCard {
   id: string;
@@ -45,27 +44,22 @@ export default function DiscoverSection() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex flex-col items-center justify-center bg-[#F5F1E8]"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 bg-[#F5F1E8]"
     >
-      {/* Section Title - Full Width FlowingMenu */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
-        className="w-full mb-8 sm:mb-10 md:mb-12"
-      >
-        <div className="h-[80px] md:h-[100px] relative bg-[#060010] overflow-hidden">
-          <FlowingMenu items={[{
-            link: '/services',
-            text: 'Discover',
-            image: 'https://picsum.photos/600/400?random=3'
-          }]} />
-        </div>
-      </motion.div>
+      <div className="max-w-[1600px] mx-auto w-full">
+        {/* Section Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
+          className="text-center mb-8 sm:mb-10 md:mb-12"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
+            Discover
+          </h2>
+        </motion.div>
 
-      {/* Content Container */}
-      <div className="max-w-[1600px] mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16">
         {/* 3 Cards Grid - Responsive: 1 col mobile, 2 cols tablet, 3 cols desktop */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
           {discoverCards.map((card, index) => (

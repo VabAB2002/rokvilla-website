@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import dynamic from "next/dynamic";
-import FlowingMenu from "@/components/FlowingMenu";
 
 // Dynamically import CircularGallery to avoid SSR issues with WebGL
 const CircularGallery = dynamic(() => import("./CircularGallery"), {
@@ -109,27 +108,21 @@ export default function FeaturedShowcase() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="min-h-screen flex flex-col items-center justify-center bg-[#F5F1E8] text-gray-900"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 bg-[#F5F1E8] text-gray-900"
     >
-      {/* Section Title - Full Width FlowingMenu */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
-        className="w-full mb-8 sm:mb-10 md:mb-12 lg:mb-16"
-      >
-        <div className="h-[80px] md:h-[100px] relative bg-[#060010] overflow-hidden">
-          <FlowingMenu items={[{
-            link: '/projects',
-            text: 'Your ROKVILLA journey starts now.',
-            image: 'https://picsum.photos/600/400?random=2'
-          }]} />
-        </div>
-      </motion.div>
-
-      {/* Content Container */}
-      <div className="max-w-[1600px] mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16">
+      <div className="max-w-[1600px] mx-auto w-full">
+        {/* Section Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          style={{ willChange: isVisible ? 'transform, opacity' : 'auto' }}
+          className="mb-8 sm:mb-10 md:mb-12 lg:mb-16"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            Your ROKVILLA journey starts now.
+          </h2>
+        </motion.div>
 
         {/* Conditional Rendering: Mobile (CircularGallery) vs Desktop (Stacked Cards) */}
         {isMobile ? (

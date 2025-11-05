@@ -23,3 +23,5 @@ Please upload the 6 project images to this directory with the following names:
 
 Once images are uploaded with the correct filenames, they will automatically appear in the Featured Showcase section.
 
+
+

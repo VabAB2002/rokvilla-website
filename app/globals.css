@@ -59,6 +59,16 @@ html {
   scrollbar-width: none;
 }
 
+/* Hide scrollbar utility for carousels */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Optimize scroll snap for better performance */
 .snap-y {
   scroll-snap-type: y mandatory;

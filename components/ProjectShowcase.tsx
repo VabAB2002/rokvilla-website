@@ -54,7 +54,7 @@ export default function ProjectShowcase() {
         className="max-w-[1400px] mx-auto w-full"
       >
         {/* Header Section */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+        <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3">
             Our Services
           </h2>
@@ -63,7 +63,7 @@ export default function ProjectShowcase() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
           {showcaseProjects.map((project, index) => (
             <ShowcaseCard
               key={project.id}
@@ -102,7 +102,7 @@ function ShowcaseCard({
     >
       <Link
         href={project.link}
-        className="group block relative h-[280px] sm:h-[300px] md:h-[320px] lg:h-[326.88px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 active:scale-[0.98]"
+        className="group block relative w-full max-w-[445.33px] aspect-[445.33/287.64] mx-auto md:mx-0 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 active:scale-[0.98]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}
@@ -114,7 +114,7 @@ function ShowcaseCard({
           src={project.imageUrl}
           alt={project.title}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 435px"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 445.33px"
           className="object-cover"
           loading="lazy"
           quality={85}

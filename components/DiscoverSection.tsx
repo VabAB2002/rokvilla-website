@@ -100,7 +100,7 @@ function DiscoverCard({
     >
       <Link
         href={card.link}
-        className="group block relative h-[350px] sm:h-[400px] md:h-[420px] lg:h-[450px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 active:scale-[0.98]"
+        className="group block relative h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 active:scale-[0.98]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}

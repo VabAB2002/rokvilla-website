@@ -127,14 +127,14 @@ export default function FeaturedShowcase() {
         {/* Conditional Rendering: Mobile (CircularGallery) vs Desktop (Stacked Cards) */}
         {isMobile ? (
           // Mobile/Tablet: 3D WebGL Circular Gallery - Responsive height
-          <div className="w-full" style={{ height: window.innerWidth < 640 ? "500px" : window.innerWidth < 1024 ? "600px" : "700px" }}>
+          <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px]">
             <CircularGallery
               items={circularGalleryItems}
               bend={1}
               textColor="#ffffff"
               borderRadius={0.05}
               scrollEase={0.1}
-              scrollSpeed={window.innerWidth < 640 ? 3 : 4}
+              scrollSpeed={3}
             />
           </div>
         ) : (

@@ -78,11 +78,11 @@ export default function Navbar() {
         />
 
         {/* Menu Panel - Responsive width for different devices */}
-        <div className="relative w-[85vw] max-w-sm sm:w-96 md:w-[420px] h-full bg-white shadow-2xl overflow-y-auto">
+        <div className="relative w-[85vw] max-w-sm sm:w-96 md:w-[420px] h-full bg-transparent overflow-y-auto">
           <div className="p-6 sm:p-8">
             {/* Close Button - Larger touch target */}
             <button
-              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-3 text-gray-600 hover:text-gray-900 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center no-touch-size"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-3 text-white hover:text-gray-200 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center no-touch-size"
               onClick={() => setIsMenuOpen(false)}
               aria-label="Close menu"
             >
@@ -101,10 +101,10 @@ export default function Navbar() {
 
             {/* Logo in Menu */}
             <div className="mb-10 sm:mb-12 mt-2">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
                 ROKVILLA
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mt-1">Design & Build Co.</p>
+              <p className="text-sm sm:text-base text-white/80 mt-1">Design & Build Co.</p>
             </div>
 
             {/* Navigation Links - Better touch targets */}
@@ -113,7 +113,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block py-4 px-4 text-lg sm:text-xl font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors min-h-[56px] flex items-center"
+                  className="block py-4 px-4 text-lg sm:text-xl font-medium text-white hover:text-gray-200 transition-colors min-h-[56px] flex items-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
@@ -122,15 +122,15 @@ export default function Navbar() {
             </nav>
 
             {/* Contact Info - Better spacing */}
-            <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200">
-              <p className="text-sm sm:text-base text-gray-600 mb-4">Get in touch</p>
+            <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-white/20">
+              <p className="text-sm sm:text-base text-white/80 mb-4">Get in touch</p>
               <a
                 href="mailto:home@rokvilla.com"
-                className="block text-base sm:text-lg text-gray-900 hover:text-gray-600 transition-colors mb-4 min-h-[44px] flex items-center"
+                className="block text-base sm:text-lg text-white hover:text-white/80 transition-colors mb-4 min-h-[44px] flex items-center"
               >
                 home@rokvilla.com
               </a>
-              <div className="text-sm sm:text-base text-gray-600 space-y-1">
+              <div className="text-sm sm:text-base text-white/80 space-y-1">
                 <p className="font-medium mb-2">Our Locations:</p>
                 <p className="leading-relaxed">Hubli-Dharwad</p>
                 <p className="leading-relaxed">Bengaluru</p>

@@ -9,13 +9,13 @@ export default function AboutPage() {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-white">
+      <section className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900">
               About ROKVILLA
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed">
               A design & construction company based in Karnataka, specializing in
               home design & construction with a dedicated in-house team of experts.
             </p>
@@ -24,33 +24,33 @@ export default function AboutPage() {
       </section>
 
       {/* About Us Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
                 Who We Are
               </h2>
-              <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 mb-4 leading-relaxed">
                 We are a design & construction company based in <strong>Hubli-Dharwad, 
                 Ballari & Bengaluru</strong> with expertise in home design & construction.
               </p>
-              <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 mb-4 leading-relaxed">
                 With <strong>10+ home construction projects</strong> and <strong>20+ home 
                 design projects</strong> successfully completed, we have established ourselves 
                 as a trusted partner for residential projects across Karnataka.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                 We have an in-house team of <strong>Architects, Interior Designers, 
                 Construction Workers & Structural Engineers</strong> capable of handling 
                 residential design & construction of any size.
               </p>
             </div>
             <div className="bg-gradient-to-br from-gray-200 to-gray-300 aspect-square rounded-lg flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="text-5xl font-bold text-gray-700 mb-2">30+</div>
-                <div className="text-xl text-gray-600">Total Projects</div>
-                <div className="mt-6 space-y-2 text-gray-600">
+              <div className="text-center p-6 sm:p-8">
+                <div className="text-4xl sm:text-5xl font-bold text-gray-700 mb-2">30+</div>
+                <div className="text-lg sm:text-xl text-gray-600">Total Projects</div>
+                <div className="mt-4 sm:mt-6 space-y-2 text-gray-600 text-sm sm:text-base">
                   <p>10+ Constructions</p>
                   <p>20+ Designs</p>
                 </div>
@@ -61,13 +61,13 @@ export default function AboutPage() {
       </section>
 
       {/* Vision Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1 bg-gradient-to-br from-blue-100 to-purple-100 aspect-square rounded-lg flex items-center justify-center p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
+            <div className="order-2 md:order-1 bg-gradient-to-br from-blue-100 to-purple-100 aspect-square rounded-lg flex items-center justify-center p-6 sm:p-8">
               <div className="text-center">
                 <svg
-                  className="w-24 h-24 mx-auto mb-4 text-blue-600"
+                  className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -79,18 +79,18 @@ export default function AboutPage() {
                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                   />
                 </svg>
-                <p className="text-2xl font-bold text-gray-800">One Stop Solution</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-800">One Stop Solution</p>
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
                 Our Vision
               </h2>
-              <p className="text-2xl text-gray-800 font-medium mb-6 leading-relaxed">
+              <p className="text-xl sm:text-2xl text-gray-800 font-medium mb-4 sm:mb-6 leading-relaxed">
                 Become a one stop solution for all home Designing, building & 
                 furnishing needs of customers.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                 We strive to simplify the home-building journey for our clients by 
                 offering comprehensive services under one roof—from initial design 
                 concepts to final construction and furnishing, ensuring a seamless 
@@ -102,18 +102,18 @@ export default function AboutPage() {
       </section>
 
       {/* Our Team */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
               Our In-House Team
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               A dedicated team of professionals ready to bring your dream home to life.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {/* Architects */}
             <div className="text-center p-8 bg-gray-50 rounded-lg">
               <div className="w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full flex items-center justify-center">
@@ -218,19 +218,19 @@ export default function AboutPage() {
       </section>
 
       {/* Awards Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
               Awards & Recognition
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               Our commitment to excellence has been recognized by industry
               leaders and organizations.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <div className="bg-white p-8 rounded-lg shadow-md">
               <div className="text-3xl mb-4">🏆</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">
